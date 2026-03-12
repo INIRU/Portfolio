@@ -9,10 +9,12 @@ export default function ProjectListItem({ project }: { project: Project }) {
   const link = project.demo_url || project.github_url;
   const { theme } = useTheme();
   const isDark = theme === "dark";
+  const detailHref = project.slug ? `/projects/${project.slug}` : null;
 
   return (
     <div
-      className="project-item group flex items-center gap-5 p-5 rounded-[16px] transition-all duration-300"
+      className="project-item group flex items-center gap-5 p-5 rounded-[16px] transition-all duration-300 cursor-pointer"
+      onClick={() => detailHref && (window.location.href = detailHref)}
       style={{ background: "var(--color-surface)", border: "1px solid var(--color-border)" }}
       onMouseEnter={(e) => {
         e.currentTarget.style.borderColor = "rgba(59,130,246,0.12)";

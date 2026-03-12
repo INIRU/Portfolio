@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import Tag from "@/components/ui/Tag";
 import type { Project } from "@/lib/types";
 import { useTheme } from "@/lib/theme";
@@ -8,10 +9,12 @@ import { ExternalLink, GithubIcon } from "lucide-react";
 export default function FeaturedCard({ project }: { project: Project }) {
   const { theme } = useTheme();
   const isDark = theme === "dark";
+  const detailHref = project.slug ? `/projects/${project.slug}` : null;
 
   return (
     <div
-      className="featured-card group grid grid-cols-1 md:grid-cols-[1.2fr_1fr] rounded-[20px] overflow-hidden transition-all duration-500"
+      className="featured-card group grid grid-cols-1 md:grid-cols-[1.2fr_1fr] rounded-[20px] overflow-hidden transition-all duration-500 cursor-pointer"
+      onClick={() => detailHref && (window.location.href = detailHref)}
       style={{
         background: isDark
           ? "linear-gradient(135deg, rgba(255,255,255,0.02) 0%, rgba(59,130,246,0.02) 100%)"
@@ -76,7 +79,21 @@ export default function FeaturedCard({ project }: { project: Project }) {
           ))}
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 flex-wrap">
+          {detailHref && (
+            <Link
+              href={detailHref}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-[12px] font-semibold transition-all duration-200 hover:scale-[1.02]"
+              style={{
+                background: "rgba(59,130,246,0.15)",
+                border: "1px solid rgba(59,130,246,0.25)",
+                color: isDark ? "#60a5fa" : "#2563eb",
+              }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              View Details
+            </Link>
+          )}
           {project.demo_url && (
             <a
               href={project.demo_url}

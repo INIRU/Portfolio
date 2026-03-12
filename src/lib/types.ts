@@ -1,8 +1,14 @@
 export interface Project {
   id: string;
   title: string;
+  slug: string | null;
   description: string;
+  content: string | null;
   thumbnail_url: string | null;
+  screenshots: string[] | null;
+  highlights: string[] | null;
+  role: string | null;
+  period: string | null;
   demo_url: string | null;
   github_url: string | null;
   tech_stack: string[];
